@@ -22,12 +22,12 @@ public class AuthController {
     }
 
     @PostMapping("/auth/signup")
-    public String registerUser(@RequestBody User user) {
+    public User registerUser(@RequestBody User user) {
         return authService.join(user);
     }
 
     @PostMapping("/auth/login")
-    public String loginUser(@RequestBody User user) {
+    public User loginUser(@RequestBody User user) {
         return authService.login(user);
     }
 }
