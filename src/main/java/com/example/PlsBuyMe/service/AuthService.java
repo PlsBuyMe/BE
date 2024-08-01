@@ -20,26 +20,26 @@ public class AuthService {
     }
 
     // 회원가입
-    public String join(User user) {
+    public User join(User user) {
         validateDuplicateUser(user);
         userRepository.save(user);
-        return "회원가입이 완료되었습니다.";
+        return user;
     }
 
     // 중복회원 검증
     public void validateDuplicateUser(User user) {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
+            throw new IllegalStateException("이미 존재하는 회원입니다");
         }
     }
 
     // 로그인
-    public String login(User user) {
+    public User login(User user) {
         Optional<User> foundUser = userRepository.findByEmail(user.getEmail());
         if ((foundUser.isPresent()) && (foundUser.get().getPassword().equals(user.getPassword()))) {
-            return "로그인 성공";
+            return user;
         } else {
-            throw new IllegalStateException("로그인 실패");
+            throw new IllegalStateException("로그인에 실패하였습니다");
         }
     }
 }
